@@ -15,7 +15,8 @@
             Console.WriteLine("Employees Management System");
             Console.WriteLine("1. View all employees");
             Console.WriteLine("2. Add new employee");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("3. Delete an employee");
+            Console.WriteLine("4. Exit");
 
             bool isLive = true;
 
@@ -45,12 +46,11 @@
 
                         Console.WriteLine("Enter employee ID: ");
                         int employeeID = int.Parse(Console.ReadLine());
-                        if (employees.Contains(employees[employeeID]))
+                        Employee addedEmployee = employees.FirstOrDefault(e => e.EmployeeID == employeeID);
+                        if (addedEmployee != null)
                         {
-                            // TODO - error handling & don't duplicate taking of ID
                             Console.WriteLine("ID has already been taken. Please try another one.");
-                            Console.WriteLine("Enter employee ID: ");
-                            int newEmployeeID = int.Parse(Console.ReadLine());
+                            employeeID = int.Parse(Console.ReadLine());
                         }
 
                         Console.WriteLine("Enter employee's department: ");
@@ -60,6 +60,20 @@
                         Console.WriteLine("Employee added successfully!");
                         break;
                     case "3":
+                        Console.WriteLine("Enter ID from employee you want to remove: ");
+                        int id = int.Parse(Console.ReadLine());
+                        Employee employeeToRemove = employees.FirstOrDefault(e => e.EmployeeID == id);
+                        if (employeeToRemove != null)
+                        {
+                            employees.Remove(employeeToRemove);
+                            Console.WriteLine($"Employee with ID: {id} has been successfully deleted.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("There is no employee with such ID. Please try again.");
+                        }
+                        break;
+                    case "4":
                         isLive = false;
                         break;
                     default:
