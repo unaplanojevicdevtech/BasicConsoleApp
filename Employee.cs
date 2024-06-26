@@ -8,13 +8,18 @@ namespace BasicConsoleApp
 {
     internal class Employee: Person
     {
-        public int EmployeeID { get; set; }
+        public string EmployeeID { get; set; }
         public string Department { get; set; }
 
-        public Employee(string firstName, string lastName, int age, int employeeID, string department): base(firstName, lastName, age)
+        public Employee(string firstName, string lastName, int age, string department): base(firstName, lastName, age)
         {
-            EmployeeID = employeeID;
+            EmployeeID = GenerateID();
             Department = department;
+        }
+
+        private static string GenerateID()
+        {
+            return Guid.NewGuid().ToString("N");
         }
 
     }
